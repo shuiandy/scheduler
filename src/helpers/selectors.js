@@ -1,13 +1,17 @@
-
-export function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for that day
-
+function getAppointmentsForDay(state, day) {
   let appointmentArr = [];
-  // eslint-disable-next-line
-  state.days.map((dayObject) => {
-    if (dayObject.name === day) {
-      dayObject.appointments.forEach((apptId) => appointmentArr.push(apptId));
+  if (!state.days) {
+    return appointmentArr;
+  }
+  // eslint-disable-next-line array-callback-return
+  state.days.map((dayItem) => {
+    if (dayItem.name === day) {
+      dayItem.appointments.forEach((appointment) => {
+        appointmentArr.push(state.appointments[appointment]);
+      });
     }
   });
-  return matchIds(state.appointments, appointmentArr);
+  return appointmentArr;
 }
+
+module.exports = { getAppointmentsForDay };

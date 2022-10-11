@@ -1,28 +1,40 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import Form from "components/Appointment/Form";
-import Status from "components/Appointment/Status";
-import Confirm from "components/Appointment/Confirm";
-import Error from "components/Appointment/Error";
+import useVisualMode from "../../hooks/useVisualMode";
 
 import "components/Appointment/styles.scss";
 
+const EMPTY = "EMPTY";
+const SHOW = "SHOW";
+const CREATE = "CREATE";
+
 export default function Appointment(props) {
-  const showApp = () => {
-    return !!props.interview;
-  };
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
 
   return (
-    <article className='appointment' data-testid='appointment'>
+    <article className="appointment" data-testid="appointment">
       <Header time={props.time} />
-      {showApp() === false && (<Empty />)}
-      {showApp() === true && (<Show
-        student={props.interview.student}
-        interviewer={props.interview.interviewer}
-      />)}
+      {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />}
+      {mode === SHOW && (
+        <Show
+          student={props.interview.student}
+          interviewer={props.interview.interviewer}
+        />
+      )}
+      {mode === CREATE && (
+        <Form
+          name={props.name}
+          value={props.value}
+          interviewers={props.interviewers}
+          onCancel={back}
+        />
+      )}
     </article>
   );
 }
