@@ -14,4 +14,29 @@ function getAppointmentsForDay(state, day) {
   return appointmentArr;
 }
 
-module.exports = { getAppointmentsForDay };
+function getInterviewersForDay(state, day) {
+  let interviewerArr = [];
+
+  // eslint-disable-next-line array-callback-return
+  state.days.map((dayItem) => {
+    if (dayItem.name === day) {
+      dayItem.interviewers.forEach((interviewerId) =>
+        interviewerArr.push(state.interviewers[interviewerId])
+      );
+    }
+  });
+  return interviewerArr;
+}
+
+function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  }
+
+  return {
+    student: interview.student,
+    interviewer: state.interviewers[interview.interviewer],
+  };
+}
+
+module.exports = { getAppointmentsForDay, getInterviewersForDay, getInterview };
