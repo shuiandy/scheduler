@@ -2,7 +2,6 @@
   We are rendering `<Application />` down below, so we need React.createElement
 */
 import React from "react";
-
 /*
   We import our helper functions from the react-testing-library
   The render function allows us to render Components
@@ -40,7 +39,7 @@ axios.defaults.baseURL = "http://localhost:8001";
 
 describe("Application", () => {
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
-    const { getByText } = render(<Application />);
+    const {getByText} = render(<Application/>);
 
     await wait(() => getByText("Monday"));
     fireEvent.click(getByText("Tuesday"));
@@ -48,7 +47,7 @@ describe("Application", () => {
   });
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const {container, debug} = render(<Application/>);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
     const appointments = getAllByTestId(container, "appointment");
@@ -57,7 +56,7 @@ describe("Application", () => {
     fireEvent.click(getByAltText(appointment, "Add"));
 
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
-      target: { value: "Lydia Miller-Jones" },
+      target: {value: "Lydia Miller-Jones"},
     });
 
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
@@ -75,7 +74,7 @@ describe("Application", () => {
   });
 
   it("loads data, cancels an interview and increases the spots remaining for Monday by 1", async () => {
-    const { container } = render(<Application />);
+    const {container} = render(<Application/>);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
@@ -102,7 +101,7 @@ describe("Application", () => {
   });
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async () => {
-    const { container } = render(<Application />);
+    const {container} = render(<Application/>);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const appointment = getAllByTestId(container, "appointment").find(
@@ -127,7 +126,7 @@ describe("Application", () => {
 
   it("shows the save error when failing to save an appointment", async () => {
     axios.put.mockRejectedValueOnce();
-    const { container } = render(<Application />);
+    const {container} = render(<Application/>);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const appointment = getAllByTestId(container, "appointment").find(
@@ -143,9 +142,6 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Close"));
 
-    expect(getByText(appointment, "Save")).toBeInTheDocument();
-
-    fireEvent.click(queryByText(appointment, "Cancel"));
 
     expect(getByText(container, "Archie Cohen")).toBeInTheDocument();
 
@@ -158,7 +154,7 @@ describe("Application", () => {
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
     axios.delete.mockRejectedValueOnce();
-    const { container } = render(<Application />);
+    const {container} = render(<Application/>);
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     const appointment = getAllByTestId(container, "appointment").find(

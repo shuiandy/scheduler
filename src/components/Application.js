@@ -34,9 +34,9 @@ export default function Application(props) {
           src="images/logo.png"
           alt="Interview Scheduler"
         />
-        <hr className="sidebar__separator sidebar--centered" />
+        <hr className="sidebar__separator sidebar--centered"/>
         <nav className="sidebar__menu">
-          <DayList days={state.days} day={state.day} setDay={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay}/>
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"

@@ -39,7 +39,7 @@ export default function Form(props) {
             name={props.name}
             type='text'
             placeholder='Enter Student Name'
-            onChange={(e) => setName(e.target.value)}
+            onChange={(event) => setName(event.target.value)}
             value={currentName}
             data-testid='student-name-input'
           />
@@ -58,7 +58,7 @@ export default function Form(props) {
           </Button>
           <Button
             confirm
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={(event) => event.preventDefault()}
             onClick={validate}
           >
             Save
