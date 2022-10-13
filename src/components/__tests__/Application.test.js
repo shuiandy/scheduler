@@ -19,9 +19,6 @@ import {
   wait,
   waitForElement,
 } from "@testing-library/react";
-/*
-  We import the component that we are testing
-*/
 import axios from "axios";
 import Application from "components/Application";
 
@@ -32,10 +29,6 @@ beforeEach(() => {
 afterEach(cleanup);
 
 axios.defaults.baseURL = "http://localhost:8001";
-
-/*
-  A test that renders a React Component
-*/
 
 describe("Application", () => {
   it("defaults to Monday and changes the schedule when a new day is selected", async () => {
