@@ -29,10 +29,10 @@ export default function Appointment(props) {
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
-    if (!props.interview && mode === SHOW) {
+    if (props.interview === null && mode === SHOW) {
       transition(EMPTY);
     }
-  }, [mode, transition, props.interview]);
+  }, [props.interview, transition, mode]);
 
   function save(name, interviewer) {
     if (name && interviewer) {
@@ -48,32 +48,24 @@ export default function Appointment(props) {
       .catch((error) => transition(ERROR_SAVE, true));
   }
 
-  function editInterview() {
-    transition(EDIT);
-  }
-
   function destroy() {
-    if (mode === CONFIRM) {
-      transition(DELETING, true);
-      props
-        .cancelInterview(props.id)
-        .then(() => transition(EMPTY))
-        .catch((error) => transition(ERROR_DELETE, true));
-    } else {
-      transition(CONFIRM);
-    }
+    transition(DELETING, true);
+    props
+      .cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch((error) => transition(ERROR_DELETE, true));
   }
 
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onEdit={editInterview}
-          onDelete={destroy}
+          onDelete={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
