@@ -5,6 +5,7 @@ function getAppointmentsForDay(state, day) {
   }
   // eslint-disable-next-line array-callback-return
   state.days.map((dayItem) => {
+    // get appointments from a day
     if (dayItem.name === day) {
       dayItem.appointments.forEach((appointment) => {
         appointmentArr.push(state.appointments[appointment]);
@@ -19,6 +20,7 @@ function getInterviewersForDay(state, day) {
 
   // eslint-disable-next-line array-callback-return
   state.days.map((dayItem) => {
+    // get interviewers from a day
     if (dayItem.name === day) {
       dayItem.interviewers.forEach((interviewerId) =>
         interviewerArr.push(state.interviewers[interviewerId])

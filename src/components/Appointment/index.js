@@ -26,6 +26,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   useEffect(() => {
+    // 
     if (props.interview && mode === EMPTY) {
       transition(SHOW);
     }
@@ -45,7 +46,7 @@ export default function Appointment(props) {
     props
       .bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch((error) => transition(ERROR_SAVE, true));
+      .catch((error) => transition(ERROR_SAVE, false));
   }
 
   function destroy() {

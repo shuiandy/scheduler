@@ -36,6 +36,7 @@ export default function reducer(state, action) {
         }
       };
       return {
+        // update the spots
         ...newState,
         days: state.days.map(day => ({
           ...day,
